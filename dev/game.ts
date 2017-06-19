@@ -1,15 +1,18 @@
-/// <reference path="car.ts"/>
+/// <reference path="player.ts"/>
+/// <reference path="vehicle.ts"/>
 
 class Game {
 	//Variables
 	public screen: Element;
+	public hitbox: any;
 	public screenBox: ClientRect;
 	public running: boolean = false;
 	private points: number;
 	private menu: Menu;
 	public timer: Timer;
 	private roads: Array<Road>;
-	public car: Car;
+	private Vehicle:Array<Vehicles> = new Array<Vehicles>();
+	public car: Player;
 
 
 	constructor(){
@@ -17,7 +20,6 @@ class Game {
         this.screenBox = this.screen.getBoundingClientRect();
 		this.createRoads();		
 		this.menu = new Menu(this);
-
         requestAnimationFrame(() => this.gameLoop());
 	}
 
@@ -25,15 +27,15 @@ class Game {
 		this.points = 0;
 		this.running = true;
 		this.timer = new Timer(this, true);
-		this.car = new Car();
+		this.car = new Player(this.screenBox);
+	
 	}
-
 
 	private gameLoop(): void{
 		if(this.running){
 		    this.updateObjects();
 		}
-		requestAnimationFrame(()=> this.gameLoop());
+		requestAnimationFrame(()=> this.gameLoop())
 	}
 
 
@@ -56,6 +58,5 @@ class Game {
 	    for(let i = 0; i < this.roads.length; i++){
 	        this.roads[i].update();
         }
-		
     }	
 }

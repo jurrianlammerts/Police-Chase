@@ -29,9 +29,14 @@ road{
 
 car{
     content: url('../images/car.png');
-    width: auto;
-    height: 23%;
-    padding: 0 2.5% 0 2.5%;
+    height:178px; 
+    width:100px;
+}
+
+policecar{
+    content: url('../images/policecar2.png');
+    height:178px; 
+    width:100px;
 }
 
 start{

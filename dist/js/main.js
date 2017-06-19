@@ -1,60 +1,106 @@
-var Car = (function () {
-    function Car() {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Player = (function () {
+    function Player(screenBox) {
         var _this = this;
-        this.width = 50;
-        this.height = 50;
         this.x = 400;
-        this.y = 200;
-        this._speed = 5;
+        this.y = 300;
+        this.screenBox = screenBox;
+        this.width = 40;
+        this.height = 20;
+        this._speed = 3;
         this.createCar();
         window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
     }
-    Object.defineProperty(Car.prototype, "speed", {
+    Object.defineProperty(Player.prototype, "speed", {
         get: function () {
             return this._speed;
         },
         enumerable: true,
         configurable: true
     });
-    Car.prototype.createCar = function () {
+    Player.prototype.createCar = function () {
         this.div = document.createElement('car');
         var screen = document.getElementById('screen');
         screen.appendChild(this.div);
     };
-    Car.prototype.collisionDetection = function () {
-        var screen = document.getElementById('screen').getBoundingClientRect();
-        if (this.x < screen.x + screen.width &&
-            this.x + this.width > screen.x &&
-            this.y < screen.y + screen.height &&
-            this.height + this.y > screen.y) {
-            console.log('BOOOOOM!');
-        }
-    };
-    Car.prototype.onKeyDown = function (event) {
+    Player.prototype.onKeyDown = function (event) {
         switch (event.keyCode) {
             case 65:
-                this.x -= this.width;
+                if (!(this.x - 45 < this.screenBox.left)) {
+                    this.x -= this.width;
+                }
                 break;
             case 68:
-                this.x += this.width;
+                if (!(this.x + 135 > this.screenBox.right)) {
+                    this.x += this.width;
+                }
                 break;
             case 87:
-                this.y -= 15;
+                if (!(this.y > this.screenBox.bottom + this.height)) {
+                    this.y -= this.height;
+                }
                 break;
             case 83:
-                this.y += 15;
+                if (!(this.y < this.screenBox.top + this.height)) {
+                    this.y += this.height;
+                }
                 break;
         }
     };
-    Car.prototype.move = function () {
+    Player.prototype.move = function () {
         this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
     };
-    return Car;
+    return Player;
 }());
+var GameObject = (function () {
+    function GameObject(tag, parent) {
+        this.div = document.createElement(tag);
+        parent.appendChild(this.div);
+    }
+    return GameObject;
+}());
+var Vehicles = (function (_super) {
+    __extends(Vehicles, _super);
+    function Vehicles(game) {
+        var _this = _super.call(this, "policecar", document.body) || this;
+        _this.speed = 0;
+        _this.y = 100;
+        _this.x = 100;
+        _this.width = 168;
+        _this.height = 108;
+        _this.speed = Math.random() * 2 + 2;
+        _this.createPoliceCar();
+        _this.update();
+        return _this;
+    }
+    Vehicles.prototype.update = function () {
+        this.x += this.speed;
+        if (this.x > window.innerWidth) {
+            this.div.remove();
+        }
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    Vehicles.prototype.createPoliceCar = function () {
+        this.div = document.createElement('policecar');
+        var road = document.getElementById('road');
+        road.appendChild(this.div);
+    };
+    return Vehicles;
+}(GameObject));
 var Game = (function () {
     function Game() {
         var _this = this;
         this.running = false;
+        this.Vehicle = new Array();
         this.screen = document.getElementsByTagName('screen')[0];
         this.screenBox = this.screen.getBoundingClientRect();
         this.createRoads();
@@ -65,7 +111,7 @@ var Game = (function () {
         this.points = 0;
         this.running = true;
         this.timer = new Timer(this, true);
-        this.car = new Car();
+        this.car = new Player(this.screenBox);
     };
     Game.prototype.gameLoop = function () {
         var _this = this;
@@ -93,6 +139,11 @@ var Game = (function () {
         }
     };
     return Game;
+}());
+var Level = (function () {
+    function Level() {
+    }
+    return Level;
 }());
 window.addEventListener('load', function () {
     var game = new Game();

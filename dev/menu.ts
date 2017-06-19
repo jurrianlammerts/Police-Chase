@@ -112,5 +112,6 @@ class Menu{
         this.isMenuOpened = false;
 	    this.game.timer.destroy();
 	    this.displayStart()
+		
     }
 }
