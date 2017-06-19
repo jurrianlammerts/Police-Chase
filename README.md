@@ -1,1 +1,3 @@
-Mijn Race-Game gemaakt in Typescript & HTML5, versie is nog in de bèta versie! :)
+A Racing-game made in Typescript (OOP) & HTML5, for a school assignment.
+
+<a href="https://stud.hosted.hr.nl/0914922/race_game/">Try the Demo here!</a>
