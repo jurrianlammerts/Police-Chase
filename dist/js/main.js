@@ -8,104 +8,23 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Player = (function () {
-    function Player(screenBox) {
-        var _this = this;
-        this.x = 400;
-        this.y = 300;
-        this.screenBox = screenBox;
-        this.width = 40;
-        this.height = 20;
-        this._speed = 3;
-        this.createCar();
-        window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
-    }
-    Object.defineProperty(Player.prototype, "speed", {
-        get: function () {
-            return this._speed;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Player.prototype.createCar = function () {
-        this.div = document.createElement('car');
-        var screen = document.getElementById('screen');
-        screen.appendChild(this.div);
-    };
-    Player.prototype.onKeyDown = function (event) {
-        switch (event.keyCode) {
-            case 65:
-                if (!(this.x - 45 < this.screenBox.left)) {
-                    this.x -= this.width;
-                }
-                break;
-            case 68:
-                if (!(this.x + 135 > this.screenBox.right)) {
-                    this.x += this.width;
-                }
-                break;
-            case 87:
-                if (!(this.y > this.screenBox.bottom + this.height)) {
-                    this.y -= this.height;
-                }
-                break;
-            case 83:
-                if (!(this.y < this.screenBox.top + this.height)) {
-                    this.y += this.height;
-                }
-                break;
-        }
-    };
-    Player.prototype.move = function () {
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
-    };
-    return Player;
-}());
 var GameObject = (function () {
-    function GameObject(tag, parent) {
-        this.div = document.createElement(tag);
-        parent.appendChild(this.div);
+    function GameObject() {
     }
     return GameObject;
 }());
-var Vehicles = (function (_super) {
-    __extends(Vehicles, _super);
-    function Vehicles(game) {
-        var _this = _super.call(this, "policecar", document.body) || this;
-        _this.speed = 0;
-        _this.y = 100;
-        _this.x = 100;
-        _this.width = 168;
-        _this.height = 108;
-        _this.speed = Math.random() * 2 + 2;
-        _this.createPoliceCar();
-        _this.update();
-        return _this;
-    }
-    Vehicles.prototype.update = function () {
-        this.x += this.speed;
-        if (this.x > window.innerWidth) {
-            this.div.remove();
-        }
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
-    };
-    Vehicles.prototype.createPoliceCar = function () {
-        this.div = document.createElement('policecar');
-        var road = document.getElementById('road');
-        road.appendChild(this.div);
-    };
-    return Vehicles;
-}(GameObject));
-var Game = (function () {
+var Game = (function (_super) {
+    __extends(Game, _super);
     function Game() {
-        var _this = this;
-        this.running = false;
-        this.Vehicle = new Array();
-        this.screen = document.getElementsByTagName('screen')[0];
-        this.screenBox = this.screen.getBoundingClientRect();
-        this.createRoads();
-        this.menu = new Menu(this);
+        var _this = _super.call(this) || this;
+        _this.running = false;
+        _this.Vehicle = new Array();
+        _this.screen = document.getElementsByTagName('screen')[0];
+        _this.screenBox = _this.screen.getBoundingClientRect();
+        _this.createRoads();
+        _this.menu = new Menu(_this);
         requestAnimationFrame(function () { return _this.gameLoop(); });
+        return _this;
     }
     Game.prototype.start = function () {
         this.points = 0;
@@ -139,7 +58,7 @@ var Game = (function () {
         }
     };
     return Game;
-}());
+}(GameObject));
 var Level = (function () {
     function Level() {
     }
@@ -236,6 +155,59 @@ var Menu = (function () {
     };
     return Menu;
 }());
+var Player = (function (_super) {
+    __extends(Player, _super);
+    function Player(screenBox) {
+        var _this = _super.call(this) || this;
+        _this.x = 400;
+        _this.y = 300;
+        _this.screenBox = screenBox;
+        _this.width = 40;
+        _this.height = 20;
+        _this._speed = 5;
+        _this.createCar();
+        window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
+        return _this;
+    }
+    Object.defineProperty(Player.prototype, "speed", {
+        get: function () {
+            return this._speed;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Player.prototype.createCar = function () {
+        this.div = document.createElement('car');
+        var screen = document.getElementById('screen');
+        screen.appendChild(this.div);
+    };
+    Player.prototype.onKeyDown = function (event) {
+        switch (event.keyCode) {
+            case 65:
+                if (!(this.x - 45 < this.screenBox.left)) {
+                    this.x -= this.width;
+                }
+                break;
+            case 68:
+                if (!(this.x + 135 > this.screenBox.right)) {
+                    this.x += this.width;
+                }
+                break;
+            case 87:
+                if (!(this.y > this.screenBox.bottom + this.height)) {
+                }
+                break;
+            case 83:
+                if (!(this.y < this.screenBox.top + this.height)) {
+                }
+                break;
+        }
+    };
+    Player.prototype.move = function () {
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    return Player;
+}(GameObject));
 var Road = (function () {
     function Road(game, height) {
         this.game = game;
@@ -305,4 +277,32 @@ var Timer = (function () {
     };
     return Timer;
 }());
+var Vehicles = (function (_super) {
+    __extends(Vehicles, _super);
+    function Vehicles(game) {
+        var _this = _super.call(this) || this;
+        _this.speed = 0;
+        _this.y = 100;
+        _this.x = 100;
+        _this.width = 168;
+        _this.height = 108;
+        _this.speed = Math.random() * 2 + 2;
+        _this.createPoliceCar();
+        _this.update();
+        return _this;
+    }
+    Vehicles.prototype.update = function () {
+        this.x += this.speed;
+        if (this.x > window.innerWidth) {
+            this.div.remove();
+        }
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    Vehicles.prototype.createPoliceCar = function () {
+        this.div = document.createElement('policecar');
+        var road = document.getElementById('road');
+        road.appendChild(this.div);
+    };
+    return Vehicles;
+}(GameObject));
 //# sourceMappingURL=main.js.map

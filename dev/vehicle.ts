@@ -1,24 +1,11 @@
-class GameObject {
-
-    public div:HTMLElement;
-    public x:number;
-    public y:number;
-    public width:number;
-    public height:number;
-    public game: Game;
-            
-    constructor(tag:string, parent:HTMLElement) {
-        this.div = document.createElement(tag);
-        parent.appendChild(this.div);
-    }
-}
+/// <reference path="GameObject.ts"/>
 
 class Vehicles extends GameObject{
     private speed: number = 0;
     private level: Level;
 
     constructor(game: Game){
-        super("policecar", document.body);
+        super();
   
         this.y = 100;
         this.x = 100;

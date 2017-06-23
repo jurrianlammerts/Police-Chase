@@ -1,17 +1,14 @@
-class Player {
-    public div: HTMLElement;
+class Player extends GameObject{
     public viewport: HTMLElement;
     public onkeydown: void;
     public _speed: number;
     
-    public x:number;
-    public y:number;
-    public width:number;
-    public height:number;
     public screenBox:any;
 
 
     constructor(screenBox: any){
+        super();
+
         this.x = 400;
         this.y = 300;
         
@@ -20,7 +17,7 @@ class Player {
         this.width = 40;
         this.height = 20;
 
-        this._speed = 3;
+        this._speed = 5;
 
         this.createCar()
         window.addEventListener("keydown", (e:KeyboardEvent) => this.onKeyDown(e));
@@ -54,13 +51,13 @@ class Player {
         // Down
         case 87:
             if(!(this.y > this.screenBox.bottom + this.height)){
-                this.y -= this.height;
+                // this.y -= this.height;
             }
             break;
         // Up
         case 83:
             if(!(this.y < this.screenBox.top + this.height)){
-                this.y += this.height;
+                // this.y += this.height;
             }
             break;
         }

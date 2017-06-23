@@ -1,7 +1,6 @@
-/// <reference path="player.ts"/>
-/// <reference path="vehicle.ts"/>
+/// <reference path="GameObject.ts"/>
 
-class Game {
+class Game extends GameObject {
 	//Variables
 	public screen: Element;
 	public hitbox: any;
@@ -16,6 +15,9 @@ class Game {
 
 
 	constructor(){
+		super();
+
+		// create screenbox
 		this.screen = document.getElementsByTagName('screen')[0];
         this.screenBox = this.screen.getBoundingClientRect();
 		this.createRoads();		
@@ -23,6 +25,7 @@ class Game {
         requestAnimationFrame(() => this.gameLoop());
 	}
 
+	// start game
 	public start(): void {
 		this.points = 0;
 		this.running = true;
@@ -31,6 +34,7 @@ class Game {
 	
 	}
 
+	// start Gameloop
 	private gameLoop(): void{
 		if(this.running){
 		    this.updateObjects();
@@ -38,12 +42,13 @@ class Game {
 		requestAnimationFrame(()=> this.gameLoop())
 	}
 
-
+	// update the objects
 	private updateObjects(): void{
 	    this.updateRoad();
 		this.car.move();
 	}
 
+	// create road
     private createRoads(): void{
         let height = this.screenBox.height;
         this.roads = [];
@@ -54,6 +59,7 @@ class Game {
         }
     }
 
+	// update road
     private updateRoad(){
 	    for(let i = 0; i < this.roads.length; i++){
 	        this.roads[i].update();
