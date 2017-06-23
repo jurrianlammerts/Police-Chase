@@ -1,6 +1,6 @@
 A Racing-game made in Typescript (OOP) & HTML5, for a school assignment. The classes used for this game are shown below in the UML. Each class has certain properties and methods.
 
-<a href="https://stud.hosted.hr.nl/0914922/Police_Chase/" target="_blank">Try the Demo here!</a>
+<a href="https://stud.hosted.hr.nl/0914922/Police_chase/" target="_blank">Try the Demo here!</a>
 
 <h1>Info</h1>
  
