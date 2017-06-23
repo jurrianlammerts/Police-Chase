@@ -13,11 +13,11 @@ A Racing-game made in Typescript (OOP) & HTML5, for a school assignment. The cla
 <h1>OOP</h1>
 
 1. Classes and instances
-    Everything is written in classes and uses instances of these classes. Shown below in the UML.
+  * Everything is written in classes and uses instances of these classes. Shown below in the UML.
 2. Encapsulation
-   Private properties and methods are prefixed with _ underscore and are doc blocked.
+  * Private properties and methods are prefixed with _ underscore and are doc blocked.
 3. Composition
-   The classification of my classes and instances is organized in the most logical way. 
+  * The classification of my classes and instances is organized in the most logical way. 
 4. Inheritance
-   The GameObjects classes make use of inheritance.
+  * The GameObjects classes make use of inheritance.
 
