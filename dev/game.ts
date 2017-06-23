@@ -10,7 +10,7 @@ class Game extends GameObject {
 	private menu: Menu;
 	public timer: Timer;
 	private roads: Array<Road>;
-	private Vehicle:Array<Vehicles> = new Array<Vehicles>();
+	private Vehicle:Array<PoliceCar> = new Array<PoliceCar>();
 	public car: Player;
 
 

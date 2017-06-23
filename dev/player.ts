@@ -9,15 +9,15 @@ class Player extends GameObject{
     constructor(screenBox: any){
         super();
 
-        this.x = 400;
-        this.y = 300;
-        
         this.screenBox = screenBox;
-        
-        this.width = 40;
-        this.height = 20;
 
-        this._speed = 5;
+        this.x = 1/2 * this.screenBox.width;
+        this.y = 1/2 * this.screenBox.height;
+        
+        this.width = 50;
+        this.height = 100;
+
+        this._speed = 10;
 
         this.createCar()
         window.addEventListener("keydown", (e:KeyboardEvent) => this.onKeyDown(e));
@@ -34,30 +34,31 @@ class Player extends GameObject{
     }
 
     private onKeyDown(event:KeyboardEvent):void{
-        // console.log(this.y, this.x);
+        console.log(this.screenBox.bottom)        
+        
         switch(event.keyCode){
         // Left
         case 65:
-            if(!(this.x-45 < this.screenBox.left)){
+            if(!(this.x-this.width < this.screenBox.left)){
                 this.x -= this.width;
 		    }
-            break;    
+            break;     
         // Right
         case 68:
-            if(!(this.x+135 > this.screenBox.right)){
+            if(!(this.x + (0.16 * this.screenBox.right) > this.screenBox.right)){
                 this.x += this.width;  
 		    }
             break;
-        // Down
+        // Up
         case 87:
-            if(!(this.y > this.screenBox.bottom + this.height)){
-                // this.y -= this.height;
+            if(!(this.y - 70 < 0)){
+                 this.y -= 80;
             }
             break;
-        // Up
+        // Down
         case 83:
-            if(!(this.y < this.screenBox.top + this.height)){
-                // this.y += this.height;
+            if(!(this.y + this.screenBox.bottom * 0.348 > this.screenBox.bottom)){
+                 this.y += 80;
             }
             break;
         }

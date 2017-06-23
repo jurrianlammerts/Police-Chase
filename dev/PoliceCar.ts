@@ -1,8 +1,5 @@
-/// <reference path="GameObject.ts"/>
-
-class Vehicles extends GameObject{
+class PoliceCar extends GameObject{
     private speed: number = 0;
-    private level: Level;
 
     constructor(game: Game){
         super();

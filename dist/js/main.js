@@ -59,11 +59,6 @@ var Game = (function (_super) {
     };
     return Game;
 }(GameObject));
-var Level = (function () {
-    function Level() {
-    }
-    return Level;
-}());
 window.addEventListener('load', function () {
     var game = new Game();
 });
@@ -159,12 +154,12 @@ var Player = (function (_super) {
     __extends(Player, _super);
     function Player(screenBox) {
         var _this = _super.call(this) || this;
-        _this.x = 400;
-        _this.y = 300;
         _this.screenBox = screenBox;
-        _this.width = 40;
-        _this.height = 20;
-        _this._speed = 5;
+        _this.x = 1 / 2 * _this.screenBox.width;
+        _this.y = 1 / 2 * _this.screenBox.height;
+        _this.width = 50;
+        _this.height = 100;
+        _this._speed = 10;
         _this.createCar();
         window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
         return _this;
@@ -182,23 +177,26 @@ var Player = (function (_super) {
         screen.appendChild(this.div);
     };
     Player.prototype.onKeyDown = function (event) {
+        console.log(this.screenBox.bottom);
         switch (event.keyCode) {
             case 65:
-                if (!(this.x - 45 < this.screenBox.left)) {
+                if (!(this.x - this.width < this.screenBox.left)) {
                     this.x -= this.width;
                 }
                 break;
             case 68:
-                if (!(this.x + 135 > this.screenBox.right)) {
+                if (!(this.x + (0.16 * this.screenBox.right) > this.screenBox.right)) {
                     this.x += this.width;
                 }
                 break;
             case 87:
-                if (!(this.y > this.screenBox.bottom + this.height)) {
+                if (!(this.y - 70 < 0)) {
+                    this.y -= 80;
                 }
                 break;
             case 83:
-                if (!(this.y < this.screenBox.top + this.height)) {
+                if (!(this.y + this.screenBox.bottom * 0.348 > this.screenBox.bottom)) {
+                    this.y += 80;
                 }
                 break;
         }
@@ -207,6 +205,34 @@ var Player = (function (_super) {
         this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
     };
     return Player;
+}(GameObject));
+var PoliceCar = (function (_super) {
+    __extends(PoliceCar, _super);
+    function PoliceCar(game) {
+        var _this = _super.call(this) || this;
+        _this.speed = 0;
+        _this.y = 100;
+        _this.x = 100;
+        _this.width = 168;
+        _this.height = 108;
+        _this.speed = Math.random() * 2 + 2;
+        _this.createPoliceCar();
+        _this.update();
+        return _this;
+    }
+    PoliceCar.prototype.update = function () {
+        this.x += this.speed;
+        if (this.x > window.innerWidth) {
+            this.div.remove();
+        }
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    PoliceCar.prototype.createPoliceCar = function () {
+        this.div = document.createElement('policecar');
+        var road = document.getElementById('road');
+        road.appendChild(this.div);
+    };
+    return PoliceCar;
 }(GameObject));
 var Road = (function () {
     function Road(game, height) {
@@ -277,32 +303,4 @@ var Timer = (function () {
     };
     return Timer;
 }());
-var Vehicles = (function (_super) {
-    __extends(Vehicles, _super);
-    function Vehicles(game) {
-        var _this = _super.call(this) || this;
-        _this.speed = 0;
-        _this.y = 100;
-        _this.x = 100;
-        _this.width = 168;
-        _this.height = 108;
-        _this.speed = Math.random() * 2 + 2;
-        _this.createPoliceCar();
-        _this.update();
-        return _this;
-    }
-    Vehicles.prototype.update = function () {
-        this.x += this.speed;
-        if (this.x > window.innerWidth) {
-            this.div.remove();
-        }
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
-    };
-    Vehicles.prototype.createPoliceCar = function () {
-        this.div = document.createElement('policecar');
-        var road = document.getElementById('road');
-        road.appendChild(this.div);
-    };
-    return Vehicles;
-}(GameObject));
 //# sourceMappingURL=main.js.map
