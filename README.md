@@ -8,7 +8,7 @@ A Racing-game made in Typescript (OOP) & HTML5, for a school assignment. The cla
   * Compiled with Visual Studio,
 
 <h1>UML Diagram</h1>
-<img src="dist/images/UML_police_chase.png">
+<img src="docs/images/UML_police_chase.png">
 
 <h1>OOP</h1>
 
