@@ -33,7 +33,6 @@ class Timer{
                 this.div.innerHTML = this._time.toString();
             }
         }
-
     }
 
     public destroy(): void{
